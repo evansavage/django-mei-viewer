@@ -1,0 +1,22 @@
+/* #contener{ width: 1000px; margin: 0 auto;}
+.pdf{ background: #40A497; height: 400px; width: 500px; float: left;}
+.mei{ background: #9A40A4; height: 400px; width: 500px;float: left; } */
+
+#contener{
+  display: flex;}
+/* .pdf{
+  height: 800px;
+  width: 800px;
+} */
+
+.pdf-view {
+  /* height: 800px;
+  width: 50vw; */
+  flex: 1;
+}
+
+.mei {
+  /* height: 800px;
+  width: 49vw; */
+  flex: 1;
+}
