@@ -23,5 +23,9 @@
 
 .comments {
 
-  margin: 40px 80px;
+  margin: 40px 10vw;
+}
+
+.comment-divider {
+  width: 50vw;
 }

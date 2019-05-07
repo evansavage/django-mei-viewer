@@ -12,6 +12,8 @@
     <!-- <link rel="stylesheet" href="pdf_mei.css"> -->
   </head>
   <body>
+    <h1>{{ score.title }}</h1>
+    <br><br>
     <div id="contener">
 
       <embed class='pdf-view' src="{{ score.pdf_url }}" type="application/pdf" />
@@ -34,18 +36,24 @@
           }, 'text');
         </script>
     </div>
+
     <div class='comments'>
-      {% for comment in score.score_comments_set.all %}
+      <br><hr><br>
+      <h1>Comments</h1>
+      {% for comment in comments %}
         <div class='comment'>
           <h3>{{ comment.author }}</h3>
           <h5>{{ comment.date }}</h5>
           <p>{{ comment.text }}</p>
+          <br><hr class="comment-divider"><br>
         </div>
       {% endfor %}
       <div>
+        <h2>New comment</h2>
         <form action="{% url 'submit' score.id %}" method="post" id="add-comment">
           {% csrf_token %}
           Name: <input type="text" name="usrname" value="">
+          <br>
           <textarea rows="4" cols="50" name="comment" form="add-comment">Enter text here...</textarea>
           <input type="submit" value="Submit">
         </form>
