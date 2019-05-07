@@ -1,11 +1,11 @@
 import datetime
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
-
+from django.urls import reverse
 
 # Create your views here.
 from .models import Score, Score_Comments
@@ -28,14 +28,13 @@ def index(request, score_id):
     return HttpResponse(template.render(context, request))
 
 def submit(request, score_id):
-    score = Score.objects.get(pk=score_id)
+    scoreG = Score.objects.get(pk=score_id)
     # template = loader.get_template('pdfviewer/index.html')
-    comment = Score_Comments.objects.create()
-    comment.score = score_id
+    comment = Score_Comments.objects.create(date=timezone.now(), score=scoreG)
     comment.author = request.POST['usrname']
     comment.text = request.POST['comment']
-    comment.date = timezone.now()
+    # comment.date = timezone.now()
     comment.save()
     context = {}
-    return 1
+    return HttpResponseRedirect(reverse(f'pdfviewer:submit', args=(scoreG.id)))
     # return HttpResponseRedirect(reverse('pdfviewer:' + score_id), args=(score.id,))

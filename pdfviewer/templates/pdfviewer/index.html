@@ -43,9 +43,9 @@
         </div>
       {% endfor %}
       <div>
-        <form action="{% url 'pdfviewer:submit' score.id %}" method="post" id="add-comment">
+        <form action="{% url 'submit' score.id %}" method="post" id="add-comment">
           {% csrf_token %}
-          Name: <input type="text" name="usrname">
+          Name: <input type="text" name="usrname" value="">
           <textarea rows="4" cols="50" name="comment" form="add-comment">Enter text here...</textarea>
           <input type="submit" value="Submit">
         </form>
