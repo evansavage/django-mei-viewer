@@ -14,14 +14,14 @@
   <body>
     <div id="contener">
 
-      <embed class='pdf-view' src="../../static/pdfviewer/Brahms_StringQuartet_Op51_No1.pdf" type="application/pdf" />
+      <embed class='pdf-view' src="{{ score.pdf_url }}" type="application/pdf" />
 
       <div id='output' class="mei">
       </div>
         <script type="text/javascript">
           var vrvToolkit = new verovio.toolkit();
           /* Load the file using HTTP GET */
-          $.get( "../../static/pdfviewer/brahms.mei", function( data ) {
+          $.get( "{{ score.mei_url }}", function( data ) {
             var svg = vrvToolkit.renderData(data,
               options = {
                   // pageHeight: 2100/10,
@@ -33,6 +33,24 @@
             $("#output").html(svg);
           }, 'text');
         </script>
+    </div>
+    <div class='comments'>
+      {% for comment in score.score_comments_set.all %}
+        <div class='comment'>
+          <h3>{{ comment.author }}</h3>
+          <h5>{{ comment.date }}</h5>
+          <p>{{ comment.text }}</p>
+        </div>
+      {% endfor %}
+      <div>
+        <form action="{% url 'pdfviewer:submit' score.id %}" method="post" id="add-comment">
+          {% csrf_token %}
+          Name: <input type="text" name="usrname">
+          <textarea rows="4" cols="50" name="comment" form="add-comment">Enter text here...</textarea>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+
     </div>
   </body>
 </html>

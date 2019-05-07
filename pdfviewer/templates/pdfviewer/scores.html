@@ -1,0 +1,7 @@
+<h1> Scores </h1>
+
+<ul>
+  {% for score in score_list %}
+    <li><a href="/pdfviewer/{{ score.id }}">{{ score.title }}</a></li>
+  {% endfor %}
+</ul>
